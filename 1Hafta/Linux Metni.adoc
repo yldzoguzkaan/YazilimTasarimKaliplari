@@ -1,0 +1,149 @@
+= LİNUX NEDİR?
+
+Linux, serbestçe dağıtılabilen, çokgörevli, çok kullanıcılı UNIX işletim sistemi türevidir. Linux, İnternet üzerinde ilgili ve meraklı birçok kişi tarafından ortak olarak geliştirilmekte olan ve başta IBM-PC uyumlu kişisel bilgisayarlar olmak üzere birçok platformda çalışabilen ve herhangi bir maliyeti olmayan bir işletim sistemidir.
+
+UNIX 70'li yılların ortalarında büyük bilgisayarlar üzerinde çok kullanıcılı bir işletim sistemi olarak geliştirilmiştir. Zaman içerisinde yayılmış ve birçok türevi ortaya çıkmıştır. UNIX ismi UNIX Research Laboratories INC şirketinin tescilli markası olduğundan dolayı birçok şirket, aynı temele dayanan işletim sistemleri için değişik isimler kullanagelmişlerdir. Örnek olarak;
+
+* Hewlett-Packard HP-UX
+
+* IBM AIX
+
+* Sun Microsystems SunOS
+
+kullanmaktadırlar. Bugün kişisel bilgisayarlardan süper bilgisayarlara kadar biçok bilgisayar için yazılmış bulunan UNIX türevleri mevcuttur. Ne var ki bu türevlerin çoğu gelişimi belirli bir noktada durmuş ve yüksek fiyatla satılan ticari yazılımlardır. 
+
+== Linux'un Desteklediği Donanımlar
+
+* Linux şu anda başta IBM-PC uyumlu kişisel bilgisayarlar olmak üzere Apple, Atari ve Amiga gibi 68000 tabanlı bilgisayarlar üzerinde, Sun Sparc işlemcili iş istasyonları, Alpha işlemcili kişisel bilgisayarlar, MIPS, PowerPC, HP PA-RISC ve ARM mimarilerinde çalışmaktadır.
+* IBM uyumlu kişisel bilgisayarlar üzerinde 80386 ve üzeri (80486 80586 Pentium PentiumPro ve türevleri) değişik üreticilerin işlemcileri ile sorunsuz olarak çalışmaktadır. 80286 ve 8086 işlemcili bilgisayarlar için sınırlı kabiliyette Linux uygulamaları mevcuttur.
+* PCI, VESA, ISA ve MCA mimarilerinde her türlü anakartı desteklemektedir.
+* Teorik olarak 4 Gbyte'a kadar RAM desteklenmektedir.
+* AT uyumlu diskler (IDE, EIDE ve 16 bitlik MFM,RLL veya ESDI) desteklenmektedir. Kontrol kartına uyumlu destek bulunduğu sürece SCSI diskler ve diğer cihazlar desteklenmektedir.
+* IDE-ATAPI CD-ROM sürücüleri, ve bazı özel CD-ROM kontrol kartları desteklenmektedir.
+* Metin ekranlarda CGA, EGA, VGA, Hercules veya uyumlu kartlar desteklenmektedir. X Window ortamında genel VGA ve SVGA uyumlu kartlar ve S3, ET4000, 8514/A, ATI MACH8, ATI MACH32 gibi birçok görüntü kartı desteklenmektedir.
+* Birçok 10 ve 100 Mbit ethernet kartı, ISDN, ATM, FDDI, SLIP, CSLIP, PPP desteği verilmektedir.
+* Başta SoundBlaster, Gravis Ultrasound olmak üzere birçok ses kartı desteklenmektedir.
+
+== Linux'un Kullanım Amaçları
+
+. Kişisel Kullanım
+
+. İnternet Sunucusu
+
+. Ağ Elemanı
+
+Windows işletim sistemlerinde olduğu gibi, Linux'un da Türkçe sürümleri bulunmaktır. Eğer bu sürümler hakkında ayrıntılı bilgi edinmek isterseniz https://linux.org.tr/[linux.org.tr] adreslerinden yararlanabilirsiniz.
+
+== Linux'un Avantaj ve Dezavantajları
+
+=== Avantajları
+
+* UNIX işletim sistemine sahip bir bilgisayar kullanmak istiyorsanız ve bu işletim sisteminde platforma bağımlı bir yazılım kullanmıyorsanız, Linux ideal bir çözümdür.
+
+* Linux ücretsizdir. Sadece işletim sisteminin maliyeti açısından değil, verdiği performans için ihtiyaç duyduğu donanım açısından da çok ucuzdur. Üstüne üstlük çok kullanılan ve bol yedek parçası bulunan bir platform altında çalıştığı için belirli bir Linux sisteminin performansını artırmak için yapılması gereken yatırım başka bir UNIX iş istasyonunu aynı oranda geliştirmek için gereken yatırıma göre çok düşüktür. Herhangi bir Sun bilgisayarın hafizasını iki katına çıkarmak için harcanacak para ile bir Linux-PC'nin hafizasını iki katına çıkarmak için harcanması gereken parayı kıyaslamayı deneyin. Fakat şirketler bazında Linux'un bedava bir işletim sistemi olması genelde gözardı edilir.
+
+* Bir Linux makine bu sayede sadece işletim sistemi açısından değil donanım olarak da ucuza gelmektedir.
+
+* Linux hızla geliştirilmektedir. Bu gelişimin en büyük yararı, eksikliklerin kullanıcıların talepleri ve çabaları sonucunda hızla giderilmesidir. Linux diğer tüm işletim sistemlerine göre belirli bir donanım için daha hızlı destek verebilmektedir.
+
+* Linux çok değişik donanımlar ve servisler icin özel olarak hazırlanır. İşletim sisteminin temelini oluşturan çekirdek kullanıcı tarafından da derlenebildiği için, bu derleme sırasında sadece kullanım amacına yönelik alt programlarla donatılır. Bu genel olarak daha sistemin performansını artırmaktadır. (Örnek olarak SCSI donanımınız yoksa çekirdeğinizde SCSI ile ilgili alt programlara yer vermezsiniz)
+
+=== Dezavantajları
+
+* Linux'un serbestçe dağıtılıyor olması bir çok kişinin bu işletim sistemine güvenmemesine yol açmıştır. ``Ciddi bir şey olsa, bedava olmazdı !'' kanısı oldukça yaygındır.
+
+* Linux'un sürekli gelişiyor olması en büyük dezavantajlarından biridir. Henüz tüm ihtiyaçlara cevap vermemesi (hala Windows95 programlarını çalıştıramıyor :) ), gelişimin bazı aşamalarında topyekün değişiklikler yapılması, gelişimi takip etmek için bazen sürekli yenileme yapılması, birçok kullanıcının bu işletim sistemine güvenmemesine yol açmıştır.
+
+* Linux herhangi bir ticari destek altında gelişmemektedir. Bunun en büyük yararı işletim sisteminin ticari kaygılar taşımamasıdır. Ancak bunun yanısıra diğer işletim sistemlerinde olan teknik destek, dağıtım ve dökümantasyon alanlarında eksikleri vardır. Özellikle teknik destek eksikliği, anahtar teslim çözümlere alışmış kullanıcıların çokluğu Linux kullanıcılarının sayısını sınırlayan temel faktörler olmuşlardır.
+
+* Linux işletim sistemini geliştirenlerin ticari kaygılar gütmemeleri bazı ticari yazılımların Linux üzerinde gelişmemesine sebep olmuştur. Linux üzerinde belirli konularda diğer işletim sistemlerinden aşağı kalmayan yazılımlar bulunmasına rağmen, belirli bazı konularda çok zayıf kalmıştır. ( Mesela oyunlar :) )
+
+* Linux üzerinde yer alan çözümlerin hepsi, basit kullanıcıların rahatça kullanabileceği düzeyde değildir. Bazı çözümler kullanıcıların belirli bir yazılım ve işletim sistemi bilgisine sahip olmalarını gerektirmektedir.
+
+== Bash Script Nedir?
+
+Bash script, Unix’de mevcut olan en popüler programlama araçlarından biridir. Açılımı Bourne Again Shell‘dir. Bütün Linux kullanıcıları veya Sistem Yöneticileri için güçlü bir araçtır.
+
+Bash script geliştirmek için fazlasıyla güçlü ve kullanışlı bir parçadır. Tekrarlanan görevleri tek bir satırlık işlev çağrısına sığdırabilir. Böylece birçok uzun komutlar tek bir çalıştırabilir komuta indirgenebilir.
+
+Bash fonksiyonunun en temel örneklerinden biri aşağıdaki gibidir:
+
+[source, bash script]
+----
+#!/bin/bash
+testfunction(){
+   echo "Ilk fonksiyonum"
+}
+testfunction
+----
+
+CAUTION: Echo sonucu konsolda gösterir. Eğer fonksiyon tanımının yerini çağrıyla değiştirirseniz hata oluşacaktır. Aşağıdaki script size hata verecektir:
+
+[source, bash script]
+----
+#!/bin/bash
+testfunction 
+testfunction(){
+   echo "My Ilk fonksiyonum"
+}
+----
+
+TIP: Bu yüzden ilk önce fonksiyonu tanımlamanız ve daha sonraysa çalıştırmanız gerekmektedir.
+
+
+Ayrıca aşağıdaki interaktif girişi kullanabilir ve bash fonksiyonlarını gerçekleştirebilirsiniz. Bunun bir örneği aşağıdaki gibidir:
+
+[source, bash script]
+----
+#!/bin/bash
+addition(){
+   sum=$(($1+$2))
+   return $sum
+}
+read -p "Bir rakam girin: " int1
+read -p "Bir rakam girin: " int2
+add $int1 $int2
+echo "Sonuc : " $?
+----
+
+Yukarıdaki örnekteki toplama değeri değişken bir sonuca atanmıştır ve bu fonksiyondan dönecektir.Interaktif giriş ise iki rakam için de read kullanarak elde edilir. Son olarak sonuçsa $? kullanılarak verilir. $?, fonksiyondan dönüş değerini $sum depolar.
+
+[NOTE]
+====
+Bash fonksiyonları daima tek bir değer verir.
+
+Dosya içinde #  sembolünü ekleyerek not bırakabilirsiniz.
+
+====
+
+Bash scriptleri aşağıdakileri desteklemektedir:
+
+* While döngüsü
+* For döngüsü
+* If ifadesi
+* Ve mantığı
+* Veya mantığı
+* Else If ifadesi
+* Case ifadesi
+
+While döngüsünün kısa bir örneği de aşağıdaki gibidir:
+
+[source, bash script]
+----
+
+#!/bin/bash
+isvalid=true
+count=1
+while [ $isvalid ]
+do
+echo $count
+if [ $count -eq 5 ];
+then
+break
+fi
+((count++))
+done
+
+----
+
+IMPORTANT: Bash’de && mantıksal VE’yi temsil ederken || mantıksal VEYA’yı temsil etmektedir.
