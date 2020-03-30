@@ -1,0 +1,60 @@
+//https://plantuml.com/class-diagram linkinden çalışılmıştır.
+@startuml
+
+enum KitapTipi {
+	Romann
+	Hikaye
+	Siir
+}
+
+Class OgrenciUye
+{
+-ogrenciUyeKarti
+}
+
+Class YetiskinUye
+{
+-yetiskinUyeKarti
+}
+
+Class Kütüphane {
+    -KitapKodu
+    +KitapAl()
+    +KitapVer()
+    }
+    
+Class Uye
+{
++KitapAl()
+}
+
+Class Personel{
+-personelKArti
++KitapVer()
+}
+
+İlkokul..|>OgrenciUye
+Ortaokul..|>OgrenciUye
+Lise..|>OgrenciUye
+Universite..|>OgrenciUye
+
+Kütüphane"1" *-- "*" Personel : <<KitapVerir>>
+
+Kütüphane"1" *-- "*" Uye : <<KitapAlır>>
+OgrenciUye--> Uye 
+YetiskinUye--> Uye
+
+
+Uye ..> Eşya : <<uses>>
+
+Personel ..> Bilgisayar : <<uses>>
+
+Kütüphane"1" o--  "*"Eşya
+Eşya <|--  Masa
+Eşya <|--  Sandalye
+Eşya <|--  Kitaplık
+Eşya <|--  Bilgisayar
+
+Kütüphane - KitapTipi
+
+@enduml
