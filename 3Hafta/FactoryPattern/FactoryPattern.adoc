@@ -1,0 +1,157 @@
+== Factory Design Pattern
+:author: Oğuz Kaan YILDIZ
+
+{author}
+
+==== Hayvan Türleri Uygulaması (JAVA)
+Hayvan türlerinin Java programlama dilininde Factory Tasarım Kalıbına uygun olarak gerçeklenme uygulamasıdır. 
+
+[uml,file="FactoryPattern.png"]
+--
+@startuml
+
+interface INT_Animal {
+    + {method} talk(): void 
+}
+
+abstract class Animal {
+    
+}
+
+INT_Animal <-- Animal : implement
+
+class Bird {
+    + {method} talk(): void
+}
+
+class Cat {
+    + {method} talk(): void
+}
+
+class Dog {
+    + {method} talk(): void
+}
+
+Animal <|-- Bird :extend
+Animal <|-- Cat :extend
+Animal <|-- Dog :extend
+
+class AnimalFactory{
+    +{method} getAnimal(String animalType): Animal
+}
+
+FactoryPatternDemo <|-- AnimalFactory :ask
+AnimalFactory <|-- Animal :create
+
+@enduml
+--
+
+Burada Bird, Cat ve Dog sınıfları olarak kabul edilen üç farklı hayvanımız olduğunu varsayalım, bunların hepsi soyut olan Animal sınıfını kullanıyor. 
+
+==== Varlık Sınıflarımız
+
+.INT_Animal.java
+[source, java]
+----
+public interface INT_Animal { 
+	void talk(); //<1>
+}
+----
+<1> Interface ile Animal Class'ımızın sınırlarını çizdik.
+
+.Animal.java
+[source, java]
+----
+public abstract class Animal implements INT_Animal { //<1>
+	
+}
+----
+
+<1> Animal sınıfını abstract olarak tanımladık.
+
+
+.Bird.java
+[source, java]
+----
+public class Bird extends Animal { //<1>
+	@Override
+	public void talk() {
+		System.out.println("CİK CİK");
+	}
+}
+----
+<1> Bird sınıfını Animal sınıfından türettik.
+
+.Cat.java
+[source, java]
+----
+public class Cat extends Animal {
+	@Override
+	public void talk() {
+		System.out.println("MİYAVVV");
+	}
+}
+
+----
+
+.Dog.java
+[source, java]
+----
+public class Dog extends Animal {
+	@Override
+	public void talk() {
+		System.out.println("HAV HAV");
+	}
+}
+----
+
+==== Üretici sınıfımız
+
+.AnimalFactory.java
+[source,java]
+----
+public class AnimalFactory {
+	public Animal getAnimal(String animalType) { //<1>
+		if(animalType == null) {
+			return null;
+		}
+		if(animalType.equalsIgnoreCase("BIRD")) {
+			return new Bird();
+			
+		}else if(animalType.equalsIgnoreCase("CAT")) {
+			return new Cat();
+		}else if(animalType.equalsIgnoreCase("DOG")) {
+			return new Dog();
+		}
+		return null;
+	}
+}
+----
+<1> Animal tipinde oluşturulan nesneleri döndüren bir getAnimal(String animalType) methodu belirledik.
+
+.FactoryPatternDemo.java
+[source, java]
+----
+public class FactoryPatternDemo {
+	public static void main(String[] args) {
+		AnimalFactory animalFactory = new AnimalFactory();
+		
+		Animal animal1 = animalFactory.getAnimal("BIRD");
+		animal1.talk();
+		
+		Animal animal2 = animalFactory.getAnimal("CAT");
+		animal2.talk();
+		
+		Animal animal3 = animalFactory.getAnimal("DOG");
+		animal3.talk();
+	}
+}
+----
+
+.Output
+[source]
+----
+CİK CİK
+MİYAVVV
+HAV HAV
+----
