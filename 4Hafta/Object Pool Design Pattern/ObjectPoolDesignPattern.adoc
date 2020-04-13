@@ -1,0 +1,176 @@
+== Object Pool Design Pattern
+:author: Oğuz Kaan YILDIZ
+
+{author}
+
+.Object Pool UML Diyagramı
+[uml,file="objectpool.png"]
+--
+@startuml
+
+  class ObjectPoolPatternDemo {
+    + main(args : String[]) {static}
+  }
+  abstract class ObjectPool<T> {
+    - available : Set<T>
+    - inUse : Set<T>
+    + ObjectPool<T>()
+    + checkIn(instance : T)
+    + checkOut() : T
+    # create() : T {abstract}
+    + toString() : String
+  }
+  class Oliphaunt {
+    - counter : AtomicInteger {static}
+    - id : int
+    + Oliphaunt()
+    + getId() : int
+    + toString() : String
+  }
+  class OliphauntPool {
+    + OliphauntPool()
+    # create() : Oliphaunt
+  }
+OliphauntPool --|> ObjectPool 
+
+
+
+@enduml
+--
+
+.Oliphaunt.java
+[source, java]
+----
+package ObjectPoolPattern;
+
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class Oliphaunt {
+	private static AtomicInteger counter = new AtomicInteger(0);
+	private final int id;
+
+	public Oliphaunt() {
+		id = counter.incrementAndGet();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Oliphaunt ID:%d", id);
+	}
+}
+----
+
+
+.ObjectPool.java
+[source, java]
+----
+package ObjectPoolPattern;
+
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Generic object pool.
+ *
+ * @param <T> Type T of Object in the Pool
+ */
+public abstract class ObjectPool<T> {
+	private Set<T> available = new HashSet<>();
+	private Set<T> inUse = new HashSet<>();
+	protected abstract T create();
+	
+	public synchronized T checkOut() {
+		if (available.isEmpty()) {
+			available.add(create());
+		}
+		T instance = available.iterator().next();
+		available.remove(instance);
+		inUse.add(instance);
+		return instance;
+	}
+
+	public synchronized void checkIn(T instance) {
+		inUse.remove(instance);
+		available.add(instance);
+	}
+
+	@Override
+	public synchronized String toString() {
+		return String.format("Kullanilabilir Havuz Sayisi: %d Kullanilan Havuz Sayisi: %d", available.size(),
+				inUse.size());
+	}
+}
+----
+
+.OliphauntPool.java
+[source, java]
+----
+package ObjectPoolPattern;
+
+public class OliphauntPool extends ObjectPool<Oliphaunt> {
+
+	@Override
+	protected Oliphaunt create() {
+		return new Oliphaunt();
+	}
+}
+
+----
+
+.ObjectPoolPatternDemo.java
+[source, java]
+----
+package ObjectPoolPattern;
+
+public class ObjectPoolPatternDemo {
+	public static void main(String[] args) {
+	    OliphauntPool pool = new OliphauntPool();
+	    System.out.println(pool.toString());
+	    Oliphaunt oliphaunt1 = pool.checkOut();
+	    System.out.println("Kontrol Edilen:" + oliphaunt1);
+	    System.out.println(pool.toString());
+	    Oliphaunt oliphaunt2 = pool.checkOut();
+	    System.out.println("Kontrol Edilen:"  + oliphaunt2);
+	    Oliphaunt oliphaunt3 = pool.checkOut();
+	    System.out.println("Kontrol Edilen:"  + oliphaunt3);
+	    System.out.println(pool.toString());
+	    System.out.println("Kontrol Edilmiş:" + oliphaunt1);
+	    pool.checkIn(oliphaunt1);
+	    System.out.println("Kontrol Edilmiş:" + oliphaunt2);
+	    pool.checkIn(oliphaunt2);
+	    System.out.println(pool.toString());
+	    Oliphaunt oliphaunt4 = pool.checkOut();
+	    System.out.println("Kontrol Edilen:" + oliphaunt4);
+	    Oliphaunt oliphaunt5 = pool.checkOut();
+	    System.out.println("Kontrol Edilen:" + oliphaunt5);
+	    System.out.println(pool.toString());
+	  }
+	}
+
+----
+
+.Output
+[source]
+----
+Kullanilabilir Havuz Sayisi: 0 Kullanilan Havuz Sayisi: 0
+Kontrol Edilen:Oliphaunt ID:1
+Kullanilabilir Havuz Sayisi: 0 Kullanilan Havuz Sayisi: 1
+Kontrol Edilen:Oliphaunt ID:2
+Kontrol Edilen:Oliphaunt ID:3
+Kullanilabilir Havuz Sayisi: 0 Kullanilan Havuz Sayisi: 3
+Kontrol Edilmiş:Oliphaunt ID:1
+Kontrol Edilmiş:Oliphaunt ID:2
+Kullanilabilir Havuz Sayisi: 2 Kullanilan Havuz Sayisi: 1
+Kontrol Edilen:Oliphaunt ID:2
+Kontrol Edilen:Oliphaunt ID:1
+Kullanilabilir Havuz Sayisi: 0 Kullanilan Havuz Sayisi: 3
+----

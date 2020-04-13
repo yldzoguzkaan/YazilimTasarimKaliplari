@@ -1,0 +1,219 @@
+== Prototype Design Pattern
+:author: Oğuz Kaan YILDIZ
+
+{author}
+
+.Prototype UML Diyagramı
+[uml,file="prototype.png"]
+--
+@startuml
+
+class PrototypeDesignPatternDemo {
+    +Main(): void
+}
+
+abstract class Animal {
+    +id: int
+    +Type: string
+    +Talk(): void
+    +clone(): Animal
+}
+
+class Bird {
+    +Talk(): void
+    +clone(): Animal
+}
+
+class Cat {
+    +Talk(): void
+    +clone(): Animal
+}
+
+class Dog {
+    +Talk(): void
+    +clone(): Animal
+}
+
+class AnimalCache {
+    +animalMap: Hashtable List
+    +getAnimal(): Animal
+    +loadCache(): void
+}
+
+Animal <|.. Bird
+Animal <|.. Cat
+Animal <|.. Dog
+
+PrototypeDesignPatternDemo <-- AnimalCache 
+
+Bird <|-- AnimalCache
+Cat  <|-- AnimalCache
+Dog  <|-- AnimalCache
+
+@enduml
+--
+
+.Animal.java
+[source, java]
+----
+package PrototypeDesignPattern;
+
+public abstract class Animal {
+	private String id;
+	protected String Type;
+	
+	abstract void talk();
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getType() {
+		return Type;
+	}
+
+	public void setType(String type) {
+		Type = type;
+	}
+	
+	public abstract Animal clone();
+}
+
+----
+
+.Bird.java
+[source, java]
+----
+package PrototypeDesignPattern;
+
+public class Bird extends Animal{
+
+	public Bird() {
+		Type = "Bird";
+	}
+
+	@Override
+	void talk() {
+		System.out.println("CİK CİK");
+	}
+
+	@Override
+	public Animal clone() {
+		return new Bird();
+	}	
+}
+
+----
+.Cat.java
+[source, java]
+----
+package PrototypeDesignPattern;
+
+public class Cat extends Animal{
+
+	public Cat() {
+		Type = "Cat";
+	}
+
+	@Override
+	void talk() {
+		System.out.println("MİYAVVV");
+	}
+	
+	@Override
+	public Animal clone() {
+		return new Cat();
+	}
+	
+}
+----
+.Dog.java
+[source, java]
+----
+package PrototypeDesignPattern;
+
+public class Dog extends Animal {
+
+	public Dog() {
+		Type = "Dog";
+	}
+
+	@Override
+	void talk() {
+		System.out.println("HAV HAV");
+	}
+	
+	@Override
+	public Animal clone() {
+		return new Dog();
+	}
+}
+----
+
+.AnimalCache.java
+[source, java]
+----
+package PrototypeDesignPattern;
+
+import java.util.Hashtable;
+
+public class AnimalCache {
+	private static Hashtable<String, Animal> animalMap = new Hashtable<String, Animal>();
+	
+	public static Animal getAnimal(String animalID) {
+		Animal cachedAnimal = animalMap.get(animalID);
+		return (Animal) cachedAnimal.clone();
+	}
+	
+	public static void loadCache() {
+		Bird b = new Bird();
+		b.setId("1");
+		animalMap.put(b.getId(), b);
+		
+		Cat c = new Cat();
+		c.setId("2");
+		animalMap.put(c.getId(), c);
+		
+		Dog d = new Dog();
+		d.setId("3");
+		animalMap.put(d.getId(), d);
+	}
+}
+----
+
+
+.PrototypeDesignPatternDemo.java
+[source, java]
+----
+package PrototypeDesignPattern;
+
+public class PrototypeDesignPatternDemo {
+
+	public static void main(String[] args) {
+		AnimalCache.loadCache();
+		
+		Animal clonedAnimal = (Animal) AnimalCache.getAnimal("1");
+		System.out.println("Animal : " + clonedAnimal.getType());
+		
+		Animal clonedAnimal1 = (Animal) AnimalCache.getAnimal("2");
+		System.out.println("Animal : " + clonedAnimal1.getType());
+		
+		Animal clonedAnimal2 = (Animal) AnimalCache.getAnimal("3");
+		System.out.println("Animal : " + clonedAnimal2.getType());
+
+	}
+
+}
+----
+
+.Output
+[source]
+----
+Animal : Bird
+Animal : Cat
+Animal : Dog
+----
