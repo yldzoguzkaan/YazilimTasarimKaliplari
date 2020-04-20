@@ -1,0 +1,332 @@
+== Builder Design Pattern
+:author: Oğuz Kaan YILDIZ
+
+{author}
+
+=== Otomat Uygulaması (Java)
+Bu uygulama kapsamında **Builder Tasarım Deseni**ne uygun **java** ortamında hayali bir Otomat Uygulaması oluşturacağız.
+
+
+=== Neden kullanırız?
+Builder Tasarım Deseni, genellikle karmaşık (kompleks) yapıları kapsüllememizi (encapsulation) sağlar. Desen olarak Fabrika Tasarım Deseni (Factory Design Pattern)'e benzer. İstemcinin nesne tipi belirtmesi ile üretim gerçekleşir.
+
+=== UML 
+
+
+[uml,file="BuilderPattern.png"]
+--
+@startuml
+interface ItemINT {
+	- itemName() : string
+	- type() : TypeINT
+	- price() : float
+}
+interface TypeINT {
+	- type() : TypeINT
+}
+class Food {
+	- type() : String
+}
+class Drink {
+	- type() : String
+}
+abstract HotDrink {
+	- type() : TypeINT
+	- price() : float
+}
+abstract Biscuit {
+	- type() : TypeINT
+	- price() : float
+}
+class Coffee {
+	- ItemName() : String
+	- price() : float
+}
+class Tea {
+	- ItemName() : String
+	- price() : float
+}
+class Biskrem {
+	- ItemName() : String
+	- price() : float
+}
+class Cizi {
+	- ItemName() : String
+	- price() : float
+}
+class Snack {
+	+ addItem(ItemINT) : void
+	+ getTotalPrice() : float
+	+showItems(): void
+}
+class SnackBuilder {
+	+ menu1() : Snack
+	+ menu2() : Snack
+}
+class BuilderPatternDemo {
+	+ main() : void
+}
+
+ItemINT <|.. Biscuit : implement
+ItemINT <|.. HotDrink : implement 
+
+Biscuit <|-- Cizi : extend
+Biscuit <|-- Biskrem : extend
+
+HotDrink <|-- Coffee : extend
+HotDrink <|-- Tea : extend
+
+TypeINT <|.. Drink : implement
+TypeINT <|.. Food : implement
+
+HotDrink <.. Drink : uses
+Biscuit <.. Food : uses
+
+ItemINT <.. Snack : uses
+Snack <.. SnackBuilder : builds
+SnackBuilder <.. BuilderPatternDemo  : asks
+
+@enduml
+--
+
+==== UML Diyagramının JAVA Ortamında Gerçeklenmesi
+
+.ItemINT.java
+[source, java]
+----
+public interface ItemINT {
+	public String itemName();
+	public TypeINT type();
+	public float price();
+}
+----
+.TypeINT.java
+[source, java]
+----
+public interface TypeINT {
+	public String type();
+}
+----
+.Food.java
+[source, java]
+----
+public class Food implements TypeINT {
+
+	@Override
+	public String type() {
+		// YENİLECEK ÜRÜNLER İÇİN
+		return "Food";
+	}
+	
+}
+----
+.Drink.java
+[source, java]
+----
+public class Drink implements TypeINT {
+
+	@Override
+	public String type() {
+		// İÇİLECEK ÜRÜNLER İÇİN
+		return "Drink";
+	}
+	
+}
+----
+.HotDrink.java
+[source, java]
+----
+public abstract class HotDrink implements ItemINT {
+
+	@Override
+	public TypeINT type() {
+		// TODO Auto-generated method stub
+		return new Drink();
+	}
+
+	@Override
+	public abstract float price();
+	
+}
+----
+.Biscuit.java
+[source, java]
+----
+public abstract class Biscuit implements ItemINT {
+
+	@Override
+	public TypeINT type() {
+		// TODO Auto-generated method stub
+		return new Food();
+	}
+
+	@Override
+	public abstract float price();
+	
+}
+----
+.Coffee.java
+[source, java]
+----
+public class Coffee extends HotDrink {
+
+	@Override
+	public String itemName() {
+		// TODO Auto-generated method stub
+		return "Coffee";
+	}
+
+	@Override
+	public float price() {
+		// TODO Auto-generated method stub
+		return (float) 1.50;
+	}
+	
+}
+----
+.Tea.java
+[source, java]
+----
+public class Tea extends HotDrink {
+
+	@Override
+	public String itemName() {
+		// TODO Auto-generated method stub
+		return "Tea";
+	}
+
+	@Override
+	public float price() {
+		// TODO Auto-generated method stub
+		return (float) 0.75;
+	}
+	
+}
+----
+.Cizi.java
+[source, java]
+----
+public class Cizi extends Biscuit {
+
+	@Override
+	public String itemName() {
+		// TODO Auto-generated method stub
+		return "Çizi";
+	}
+
+	@Override
+	public float price() {
+		// TODO Auto-generated method stub
+		return (float) 1.25;
+	}
+	
+}
+----
+.Biskrem.java
+[source, java]
+----
+public class Biskrem extends Biscuit {
+
+	@Override
+	public String itemName() {
+		// TODO Auto-generated method stub
+		return "Biskrem";
+	}
+
+	@Override
+	public float price() {
+		// TODO Auto-generated method stub
+		return (float) 1.75;
+	}
+	
+}
+----
+.Snack.java
+[source, java]
+----
+public class Snack {
+	List<ItemINT> items = new ArrayList<ItemINT>();
+	
+	public void addItem(ItemINT item) {
+		items.add(item);
+	}
+	
+	public float getTotalPrice() {
+		float totalPrice = 0.0f;
+		
+		for (ItemINT itemINT : items) {
+			totalPrice += itemINT.price();
+		}
+		
+		return totalPrice;
+	}
+	
+	public void showItems() {
+		for (ItemINT itemINT : items) {
+			System.out.println("Item:" + itemINT.itemName());
+			System.out.println("Item Type:" + itemINT.type().type());//ilki itemINT ikincisi türemişlerden gelen
+			System.out.println("Item Price:" + itemINT.price());
+		}
+	}
+}
+----
+.SnackBuilder.java
+[source, java]
+----
+public class SnackBuilder {
+	public Snack menu1() {
+		Snack s1 = new Snack();
+		s1.addItem(new Biskrem());
+		s1.addItem(new Tea());
+		return s1;
+	}
+	public Snack menu2() {
+		Snack s2 = new Snack();
+		s2.addItem(new Cizi());
+		s2.addItem(new Coffee());
+		return s2;
+	}
+}
+----
+.BuilderPatternDemo.java
+[source, java]
+----
+public class BuilderPatternDemo {
+	public static void main(String[] args) {
+		SnackBuilder sb = new SnackBuilder();
+		
+		Snack s1 = sb.menu1();
+		System.out.println("--> MENU 1 <--");
+		s1.showItems();
+		System.out.println("Total Price: " + s1.getTotalPrice());
+		
+		/** **************** **/
+		
+		Snack s2 = sb.menu2();
+		System.out.println("--> MENU 2 <--");
+		s2.showItems();
+		System.out.println("Total Price: " + s2.getTotalPrice());
+	}
+}
+----
+
+.Output
+[source]
+----
+--> MENU 1 <--
+Item:Biskrem
+Item Type:Food
+Item Price:1.75
+Item:Tea
+Item Type:Drink
+Item Price:0.75
+Total Price: 2.5
+--> MENU 2 <--
+Item:Çizi
+Item Type:Food
+Item Price:1.25
+Item:Coffee
+Item Type:Drink
+Item Price:1.5
+Total Price: 2.75
+----
