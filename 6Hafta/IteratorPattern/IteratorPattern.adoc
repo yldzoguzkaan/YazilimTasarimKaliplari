@@ -52,14 +52,10 @@ IteratorPatternDemo <-- ShapeStorage: uses
 @enduml
 --
 
-Şimdi sınıflarımızı açıklayalım..
-
-* `**Aggregate**` - Veri kümesi içerisinde dolaşmak için bir Iterator interface’i tipinden Iterator yaratılmasını zorunlu tutan arayüzdür.
-* `**Iterator**` - Veri kümesi içerisinde dolaşmanın tüm şart ve imzasını bu arayüz belirlemektedir. Yani bir enumerator(sayıcı) görevi üstlenmektedir. Uzun lafın kısası, elimizdeki veri kümesi üzerinde döngü esnasında verileri/nesneleri elde edebilmemiz için gerekli işlemleri/kontrolleri/şartları/hususları tanımlar.
-* `**FruitCollection**` - Veri kümesini barındıran nesnedir. Aggregate arayüzünü uygulayarak Iterator nesnesini oluşturur.
-* `**FruitIterator**` - Iterator arayüzünü uygulayan ve içerisinde iterasyon metot ve özelliklerini barındıran, yukarıda da bahsettiğimiz enumerator görevini üstlenen sınıftır.
-* `**Fruit**` - Verimizin yapısını temsil eden sınıftır.
-* `**Program**` - Deseni kullanarak, belirtilen şartlara göre veri kümesi içerisindeki elemanlara erişen nesnemizdir.
+* `**Shape**` - Verimizin yapısını temsil eden sınıftır.
+* `**ShapeStorage**` - Veri kümesini barındıran nesnedir. Iterator arayüzünü uygulayarak Iterator nesnesini oluşturur.
+* `**ShapeIterator**` - Iterator arayüzünü uygulayan ve içerisinde iterasyon metot ve özelliklerini barındıran sınıftır.
+* `**IteratorPatternDemo**` - Deseni kullanarak, belirtilen şartlara göre veri kümesi içerisindeki elemanlara erişen nesnemizdir.
 
 ==== UML Diyagramının Java Ortamında Gerçeklenmesi
 .Shape.java
