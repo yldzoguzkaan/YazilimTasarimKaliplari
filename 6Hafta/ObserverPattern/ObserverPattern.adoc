@@ -1,0 +1,195 @@
+== Observer Design Pattern
+:author: Oğuz Kaan YILDIZ
+
+{author}
+
+=== Neden Kullanırız?
+
+Observer Pattern, nesneler arasında bire çok ilişki olduğunda bir nesnenin değişikliğinden farklı nesneler etkilenecek ise bağımlı nesneleri otomatik olarak bilgilendirir.
+
+==== UML 
+
+[uml,file="ObserverPattern.png"]
+--
+@startuml
+
+class Subject{
+    -observers: List<Observer>
+    -state : int
+    +getState() : int
+    +setState(int) : void
+    +attach(Observer) : void
+    +notifiyAllObservers(): void
+}
+abstract class Observer{
+    #subject: Subject
+    +update(): abstract void
+}
+class BinaryObserver{
+    +BinaryObserver(Subject)
+    +Update(): void
+}
+class OctalObserver{
+    +BinaryObserver(Subject)
+    +Update(): void
+}
+class HexaObserver{
+    +BinaryObserver(Subject)
+    +Update(): void
+}
+class ObserverPatternDemo{
+    +main()
+}
+
+Subject <-- ObserverPatternDemo: asks 
+BinaryObserver <-- ObserverPatternDemo: asks 
+OctalObserver <-- ObserverPatternDemo: asks 
+HexaObserver <-- ObserverPatternDemo: asks 
+
+Subject <-- Observer : #Subject 0..1
+Observer <-- Subject : -observers 0..*
+
+Observer <-- BinaryObserver : Extend
+Observer <-- OctalObserver : Extend
+Observer <-- HexaObserver : Extend
+@enduml
+--
+
+
+==== UML Diyagramının Java Ortamında Gerçeklenmesi
+.Subject.java
+[source, java]
+----
+package ObserverPattern;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Subject {
+	private List<Observer> observers = new ArrayList<Observer>();
+	private int state;
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+		notifyAllObservers();
+	}
+
+	public void attach(Observer observer) {
+		observers.add(observer);
+	}
+
+	public void notifyAllObservers() {
+		for (Observer observer : observers) {
+			observer.update();
+		}
+	}
+}
+----
+
+.Observer.java
+[source, java]
+----
+package ObserverPattern;
+
+public abstract class Observer {
+	protected Subject subject;
+
+	public abstract void update();
+}
+----
+
+.BinaryObserver.java
+[source, java]
+----
+package ObserverPattern;
+
+public class BinaryObserver extends Observer {
+	public BinaryObserver(Subject subject) {
+		this.subject = subject;
+		this.subject.attach(this);
+	}
+
+	@Override
+	public void update() {
+		System.out.println("Binary String: " + Integer.toBinaryString(subject.getState()));
+	}
+}
+----
+.OctalObserver.java
+[source, java]
+----
+package ObserverPattern;
+
+public class OctalObserver extends Observer {
+	public OctalObserver(Subject subject) {
+		this.subject = subject;
+		this.subject.attach(this);
+	}
+
+	@Override
+	public void update() {
+		System.out.println("Octal String: " + Integer.toOctalString(subject.getState()));
+	}
+}
+
+----
+.HexaObserver.java
+[source, java]
+----
+package ObserverPattern;
+
+public class HexaObserver extends Observer {
+	public HexaObserver(Subject subject) {
+		this.subject = subject;
+		this.subject.attach(this);
+	}
+
+	@Override
+	public void update() {
+		System.out.println("Hex String: " + Integer.toHexString(subject.getState()).toUpperCase());
+	}
+}
+----
+
+.ObserverPatternDemo.java
+[source, java]
+----
+package ObserverPattern;
+
+public class ObserverPatternDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Subject subject = new Subject();
+
+		new HexaObserver(subject);
+		new OctalObserver(subject);
+		new BinaryObserver(subject);
+
+		System.out.println("First state change: 15");
+		subject.setState(15);
+		System.out.println("Second state change: 10");
+		subject.setState(10);
+	}
+
+}
+----
+
+.Output
+[source]
+----
+First state change: 15
+Hex String: F
+Octal String: 17
+Binary String: 1111
+Second state change: 10
+Hex String: A
+Octal String: 12
+Binary String: 1010
+----
+
+
