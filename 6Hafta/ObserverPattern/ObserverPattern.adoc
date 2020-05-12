@@ -55,6 +55,14 @@ Observer <-- HexaObserver : Extend
 @enduml
 --
 
+Şimdi sınıflarımızı açıklayalım..
+
+* `**Observer**` - Gözlemci ata nesnemiz.
+* `**Subject**` - İstemci nesnesine gözlemci ekleme ve ayırma yöntemlerini yöneten nesnedir.
+* `**BinaryObserver**` - Sınıf gözlemcisini genişleten çocuk nesnemiz
+* `**OctalObserver**` - Sınıf gözlemcisini genişleten çocuk nesnemiz
+* `**HexaObserver**` - Sınıf gözlemcisini genişleten çocuk nesnemiz
+* `**ObserverPatternDemo**` - Gözlemci nesnesini hareket halinde göstermek icin Subject nesnesini kullanan nesnemiz
 
 ==== UML Diyagramının Java Ortamında Gerçeklenmesi
 .Subject.java
