@@ -1,0 +1,110 @@
+== Mediator Design Pattern
+:author: Oğuz Kaan YILDIZ
+{author}
+
+==== Nedir?
+
+Aracı deseni, bir nesne kümesinin nasıl etkileştiğini kapsayan bir nesne tanımlar. Bu örüntü, programın çalışma davranışını değiştirebilme biçimi nedeniyle davranış örüntüsü olarak kabul edilir. Nesne yönelimli programlamada, programlar genellikle birçok sınıftan oluşur.
+
+==== Neden kullanılmalı?
+
+* Nesne Yönelimli(Object Oriented) programlamada, kullanıcı ve gruplar arasındaki iletişimi, onlardan soyutlayarak kendi içerisinde yönetecek olan bir ara nesneye ihtiyaç duyulduğunda Mediator Pattern kullanılır.
+
+=== Tasarımın Java Ortamında Gerçeklenmesi
+
+Birden fazla kullanıcının sohbet odasına mesaj gönderebileceği bir sohbet odası örneği aracılığıyla arabulucu düzenini gösteriyoruz ve iletileri tüm kullanıcılara göstermek sohbet odasının sorumluluğundadır. ChatOdasi ve Kullanıcı olmak üzere iki sınıf oluşturduk . Kullanıcı nesneleri mesajlarını paylaşmak için ChatOdasi yöntemini kullanır.
+
+Demo sınıfımız MediatorPatternDemo , aralarındaki iletişimi göstermek için Kullanıcı nesnelerini kullanacaktır .
+
+.Mediator Design Pattern UML Diyagramı
+[uml,file="MediatorPattern.png" align="center"]
+--
+@startuml
+
+class Kullanici{
+    -KullaniciAdi : String
+    +getKullaniciAdi():String
+    +setKullaniciAdi(String):void
+    +mesajGonder(String):void
+}
+
+class ChatOdasi{
+    +mesajGonder(Kullanici,String):void
+}
+
+class MediatorPatternDemo{
+    +main():void
+}
+
+Kullanici <-- MediatorPatternDemo : uses
+ChatOdasi <-- Kullanici : uses
+@enduml
+--
+
+Şimdi bu diyagrama ait kodu java ortamında geliştirelim.
+
+[source, java]
+----
+import java.util.Date;
+
+public class ChatOdasi {
+	public static void mesajiGoster(Kullanici kullanici, String mesaj) {
+		System.out.println(new Date().toString() + " [" + kullanici.getKullaniciAdi() + "] : " + mesaj);
+	}
+}
+
+----
+
+[source, java]
+----
+public class Kullanici {
+	private String KullaniciAdi;
+
+	public String getKullaniciAdi() {
+		return KullaniciAdi;
+	}
+
+	public void setKullaniciAdi(String kullaniciAdi) {
+		KullaniciAdi = kullaniciAdi;
+	}
+
+	public Kullanici() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Kullanici(String kullaniciAdi) {
+		super();
+		KullaniciAdi = kullaniciAdi;
+	}
+	
+	public void mesajGonder(String mesaj) {
+		ChatOdasi.mesajiGoster(this, mesaj);
+	}
+}
+
+----
+
+[source, java]
+----
+public class MediatorPatternDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Kullanici oky = new Kullanici("OKY");
+		Kullanici can = new Kullanici("CAN");
+		
+		oky.mesajGonder("Naber");
+		can.mesajGonder("İyidir.");
+	}
+
+}
+----
+
+.Output
+[source]
+----
+Wed Jun 03 02:44:56 EET 2020 [OKY] : Naber
+Wed Jun 03 02:44:56 EET 2020 [CAN] : İyidir.
+----
+

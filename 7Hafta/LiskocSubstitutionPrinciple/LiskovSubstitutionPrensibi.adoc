@@ -1,0 +1,304 @@
+== Liskov Substitution Prensibi
+:author: Oğuz Kaan YILDIZ
+{author}
+
+==== Nedir?
+
+Alt seviye sınıflardan oluşan nesnelerin/sınıfların, ana(üst) sınıfın nesneleri ile yer değiştirdikleri zaman, aynı davranışı sergilemesi gerekmektedir. Türetilen sınıflar, türeyen sınıfların tüm özelliklerini kullanabilmelidir.
+
+==== Neden kullanılmalı?
+
+* LSP’ye uygunluk tam olarak sınıflardan beklenen davranışları karşılayabilecek bir hiyerarşi düzeni oluşturarak sınıf yapılarımızı geliştirmektir.
+
+
+.Liskov Liskov Substitution Prensibi UML Diyagramı
+[uml,file="LiskovSubstitutionPrensibi.png" align="center"]
+--
+@startuml
+
+abstract class Hayvan{
+    -turAdi : String
+    +getTurAdi():String
+    +setTurAdi(String):void
+    +toString(String):String
+}
+class Maymun{
+    +getTurAdi():String
+    +setTurAdi(String):void
+    +toString():String
+    +Tirmanabilme():String
+    +Ziplayabilme():String
+    +Yuruyebilme():String
+    +SesCikarabilme():String
+}
+class Kedi{
+    +getTurAdi():String
+    +setTurAdi(String):void
+    +toString():String
+    +Tirmanabilme():String
+    +Ziplayabilme():String
+    +Yuruyebilme():String
+    +SesCikarabilme():String
+}
+class Guvercin{
+    +getTurAdi():String
+    +setTurAdi(String):void
+    +toString():String
+    +Ucabilme():String
+    +Ziplayabilme():String
+    +Yuruyebilme():String
+    +SesCikarabilme():String
+}
+Interface ITirmanabilme{
+    Tirmanabilme():String
+}
+Interface IYuruyebilme{
+    Yuruyebilme():String
+}
+Interface ISesCikarabilme{
+    SesCikarabilme():String
+}
+Interface IZiplayabilme{
+    Ziplayabilme():String
+}
+Interface IUcabilme{
+    Ucabilme():String
+}
+
+Hayvan <-- Maymun : Extend
+Hayvan <-- Kedi : Extend
+Hayvan <-- Guvercin : Extend
+
+ITirmanabilme <|.. Maymun : Implement
+ITirmanabilme <|.. Kedi : Implement
+
+IZiplayabilme <|.. Maymun : Implement
+IZiplayabilme <|.. Kedi : Implement
+IZiplayabilme <|.. Guvercin : Implement
+
+IYuruyebilme <|.. Maymun : Implement
+IYuruyebilme <|.. Kedi : Implement
+IYuruyebilme <|.. Guvercin : Implement
+
+ISesCikarabilme <|.. Maymun : Implement
+ISesCikarabilme <|.. Kedi : Implement
+ISesCikarabilme <|.. Guvercin : Implement
+
+IUcabilme <|.. Guvercin : Implement
+
+
+@enduml
+--
+
+Şimdi bu diyagrama ait kodu java ortamında geliştirelim.
+
+[source, java]
+----
+public abstract class Hayvan {
+	private String turAdi;
+
+	public Hayvan(String turAdi) {
+		super();
+		this.turAdi = turAdi;
+	}
+
+	public Hayvan() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getTurAdi() {
+		return turAdi;
+	}
+
+	public void setTurAdi(String turAdi) {
+		this.turAdi = turAdi;
+	}
+
+	@Override
+	public String toString() {
+		return "Hayvan [turAdi=" + turAdi + "]";
+	}
+}
+----
+
+[source, java]
+----
+public interface ISesCikarabilme {
+	public String SesCikarabilme();
+}
+----
+
+[source, java]
+----
+public interface ITirmanabilme {
+	public String Tirmanabilme();
+}
+----
+[source, java]
+----
+public interface IUcabilme {
+	public String Ucabilme();
+}
+----
+
+[source, java]
+----
+public interface IYuruyebilme {
+	public String Yuruyebilme();
+}
+----
+
+[source, java]
+----
+public interface IZiplayabilme {
+	public String Ziplayabilme();
+}
+----
+
+[source, java]
+----
+public class Kedi extends Hayvan implements ISesCikarabilme,IYuruyebilme, IZiplayabilme, ITirmanabilme{
+	
+	
+	@Override
+	public String getTurAdi() {
+		// TODO Auto-generated method stub
+		return "Kedi";
+	}
+
+	@Override
+	public void setTurAdi(String turAdi) {
+		// TODO Auto-generated method stub
+		super.setTurAdi(turAdi);
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
+
+	@Override
+	public String Tirmanabilme() {
+		// TODO Auto-generated method stub
+		return "Kedi Tirmandi";
+	}
+
+	@Override
+	public String Ziplayabilme() {
+		// TODO Auto-generated method stub
+		return "Kedi Zipladi";
+	}
+
+	@Override
+	public String Yuruyebilme() {
+		// TODO Auto-generated method stub
+		return "Kedi Yürüdü";
+	}
+
+	@Override
+	public String SesCikarabilme() {
+		// TODO Auto-generated method stub
+		return "Kedi Konustu";
+	}
+	
+}
+----
+
+[source, java]
+----
+public class Maymun extends Hayvan implements ISesCikarabilme,IYuruyebilme, IZiplayabilme, ITirmanabilme {
+	
+	@Override
+	public String getTurAdi() {
+		// TODO Auto-generated method stub
+		return "Maymun";
+	}
+
+	@Override
+	public void setTurAdi(String turAdi) {
+		// TODO Auto-generated method stub
+		super.setTurAdi(turAdi);
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
+
+	@Override
+	public String Tirmanabilme() {
+		// TODO Auto-generated method stub
+		return "Maymun Tirmandi";
+	}
+
+	@Override
+	public String Ziplayabilme() {
+		// TODO Auto-generated method stub
+		return "Maymun Zipladi";
+	}
+
+	@Override
+	public String Yuruyebilme() {
+		// TODO Auto-generated method stub
+		return "Maymun Yurudu";
+	}
+
+	@Override
+	public String SesCikarabilme() {
+		// TODO Auto-generated method stub
+		return "Maymun Ses Cikardi";
+	}
+}
+----
+
+[source, java]
+----
+public class Guvercin extends Hayvan implements ISesCikarabilme, IYuruyebilme, IUcabilme, IZiplayabilme {
+
+	@Override
+	public String Ziplayabilme() {
+		// TODO Auto-generated method stub
+		return "Guvercin Zipladi";
+	}
+
+	@Override
+	public String Ucabilme() {
+		// TODO Auto-generated method stub
+		return "Guvercin Uctu";
+	}
+
+	@Override
+	public String Yuruyebilme() {
+		// TODO Auto-generated method stub
+		return "Guvercin Yurudu";
+	}
+
+	@Override
+	public String SesCikarabilme() {
+		// TODO Auto-generated method stub
+		return "Guvercin Ses Cikardi";
+	}
+
+	@Override
+	public String getTurAdi() {
+		// TODO Auto-generated method stub
+		return "Guvercin";
+	}
+
+	@Override
+	public void setTurAdi(String turAdi) {
+		// TODO Auto-generated method stub
+		super.setTurAdi(turAdi);
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
+	
+}
+----

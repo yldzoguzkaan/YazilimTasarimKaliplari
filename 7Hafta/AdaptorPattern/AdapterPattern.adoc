@@ -1,0 +1,186 @@
+== Adapter Design Pattern
+:author: Oğuz Kaan YILDIZ
+{author}
+
+==== Nedir?
+
+Adaptör deseni, mevcut bir sınıfın arayüzünün başka bir arayüz olarak kullanılmasına izin veren bir yazılım tasarım modelidir. Genellikle varolan sınıfların kaynak kodlarını değiştirmeden başkalarıyla çalışmasını sağlamak için kullanılır.
+
+==== Neden kullanılmalı?
+
+* Beklenen servislerin, farklı bir arayüz ile o sınıfa ait servisleri kullanabileceği yapıyı oluşturmaktır.
+
+=== Tasarımın Java Ortamında Gerçeklenmesi
+
+Adaptör deseninin, bir ses çalar cihazının sadece mp3 dosyalarını çalabildiği ve vlc ve mp4 dosyalarını çalabilen gelişmiş bir ses çalar kullanmak istediği aşağıdaki örnekle kullanıldığını gösteriyoruz. Daha anlaşılır olması için örneğimize ait UML diyagramı aşağıdadır.
+
+.Adapter Design Pattern UML Diyagramı
+[uml,file="AdapterPattern.png" align="center"]
+--
+@startuml
+
+interface MedyaOynatici{
+    +oynat(String,String):void
+    
+}
+
+interface GelismisMedyaOynatici{
+    +oynatVlc():void
+    +oynatMp4():void
+}
+
+class Mp4Oynatici{
+    +oynatVlc(String):void
+    +oynatMp4(String):void
+}
+
+class VlcOynatici{
+    +oynatVlc(String):void
+    +oynatMp4(String):void
+}
+
+class MedyaAdaptor{
+    +oynat(String,String):void
+}
+
+class SesOynatici{
+    +oynat(String,String):void
+}
+
+class AdapterPatternDemo{
+    +main():void
+}
+
+GelismisMedyaOynatici <|.. Mp4Oynatici : implements
+GelismisMedyaOynatici <|.. VlcOynatici : implements
+
+MedyaOynatici <|.. SesOynatici : implements
+MedyaOynatici <|.. MedyaAdaptor : implements
+
+GelismisMedyaOynatici <-- MedyaAdaptor : uses
+SesOynatici <-- AdapterPatternDemo : uses
+SesOynatici <-- MedyaAdaptor : uses
+
+@enduml
+--
+
+[source, java]
+----
+public interface MedyaOynatici {
+	public void oynat(String dosyaTipi, String dosyaAdi);
+}
+----
+
+[source, java]
+----
+public interface GelismisMedyaOynatici {
+	public void oynatVlc(String dosyaAdi);
+	public void oynatMp4(String dosyaAdi);
+}
+----
+[source, java]
+----
+public class VlcOynatici implements GelismisMedyaOynatici {
+
+	@Override
+	public void oynatVlc(String dosyaAdi) {
+		System.out.println(dosyaAdi + " adli VLC dosyasi calinmaktadir.");
+		
+	}
+
+	@Override
+	public void oynatMp4(String dosyaAdi) {
+		
+	}
+	
+}
+----
+
+[source, java]
+----
+public class Mp4Oynatici implements GelismisMedyaOynatici {
+
+	@Override
+	public void oynatVlc(String dosyaAdi) {
+	}
+
+	@Override
+	public void oynatMp4(String dosyaAdi) {
+		System.out.println(dosyaAdi + " adli MP4 dosyasi calinmaktadir.");
+	}
+	
+}
+----
+
+[source, java]
+----
+public class MedyaAdaptor implements MedyaOynatici{
+	GelismisMedyaOynatici gmo;
+	
+	public MedyaAdaptor(String dosyaTipi) {
+		if(dosyaTipi.equalsIgnoreCase("VLC")) {
+			gmo = new VlcOynatici();
+		}else if(dosyaTipi.equalsIgnoreCase("MP4")) {
+			gmo = new Mp4Oynatici();
+		}
+	}
+	@Override
+	public void oynat(String dosyaTipi, String dosyaAdi) {
+		if(dosyaTipi.equalsIgnoreCase("VLC")) {
+			gmo.oynatVlc(dosyaAdi);
+		}else if(dosyaTipi.equalsIgnoreCase("MP4")) {
+			gmo.oynatMp4(dosyaAdi);
+		}
+	}
+	
+}
+----
+
+[source, java]
+----
+public class SesOynatici implements MedyaOynatici{
+	MedyaOynatici ma;
+	
+	@Override
+	public void oynat(String dosyaTipi, String dosyaAdi) {
+		if(dosyaTipi.equalsIgnoreCase("MP3")) {
+			System.out.println(dosyaAdi + " adli MP3 dosyasi calinmaktadir.");
+		}else if(dosyaTipi.equalsIgnoreCase("VLC") || dosyaTipi.equalsIgnoreCase("MP4")) {
+			ma = new MedyaAdaptor(dosyaTipi);
+			ma.oynat(dosyaTipi, dosyaAdi);
+		}else {
+			System.out.println("Tanimlanamayan Medya." + dosyaTipi + " formati desteklenemiyor.");
+		}
+	}
+	
+}
+
+----
+
+
+[source, java]
+----
+public class AdapterPatternDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		SesOynatici so = new SesOynatici();
+		so.oynat("MP3", "Gaye Su Akyol - Rüyalarda Buluşuruz.mp3");
+		so.oynat("MP4", "Gaye Su Akyol - Cehennem Meyhanesi.mp4");
+		so.oynat("VLC", "Gaye Su Akyol - Gamzendeyim Deva Bulmam.mp3");
+		so.oynat("AVI", "Gaye Su Akyol - Rüyalarda Buluşuruz.mp3");
+	}
+
+}
+----
+
+.Output
+[source]
+----
+Gaye Su Akyol - Rüyalarda Buluşuruz.mp3 adli MP3 dosyasi calinmaktadir.
+Gaye Su Akyol - Cehennem Meyhanesi.mp4 adli MP4 dosyasi calinmaktadir.
+Gaye Su Akyol - Gamzendeyim Deva Bulmam.mp3 adli VLC dosyasi calinmaktadir.
+Tanimlanamayan Medya.AVI formati desteklenemiyor.
+
+----
+
