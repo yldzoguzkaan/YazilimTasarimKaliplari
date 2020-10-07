@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <interface id="1" language="java" name="LiskovSubstitutionPrinciple.IYuruyebilme" project="YazilimTasarimKaliplari" 
+    file="/YazilimTasarimKaliplari/src/LiskovSubstitutionPrinciple/IYuruyebilme.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="81" width="124" x="116" y="360"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="2" language="java" name="LiskovSubstitutionPrinciple.ITirmanabilme" project="YazilimTasarimKaliplari" 
+    file="/YazilimTasarimKaliplari/src/LiskovSubstitutionPrinciple/ITirmanabilme.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="81" width="127" x="-51" y="360"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="3" language="java" name="LiskovSubstitutionPrinciple.IUcabilme" project="YazilimTasarimKaliplari" 
+    file="/YazilimTasarimKaliplari/src/LiskovSubstitutionPrinciple/IUcabilme.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="122" x="622" y="360"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="4" language="java" name="LiskovSubstitutionPrinciple.Kedi" project="YazilimTasarimKaliplari" 
+    file="/YazilimTasarimKaliplari/src/LiskovSubstitutionPrinciple/Kedi.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="138" x="280" y="113"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="5" language="java" name="LiskovSubstitutionPrinciple.ISesCikarabilme" project="YazilimTasarimKaliplari" 
+    file="/YazilimTasarimKaliplari/src/LiskovSubstitutionPrinciple/ISesCikarabilme.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="81" width="138" x="280" y="360"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="6" language="java" name="LiskovSubstitutionPrinciple.Hayvan" project="YazilimTasarimKaliplari" 
+    file="/YazilimTasarimKaliplari/src/LiskovSubstitutionPrinciple/Hayvan.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="132" x="280" y="-98"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="7" language="java" name="LiskovSubstitutionPrinciple.IZiplayabilme" project="YazilimTasarimKaliplari" 
+    file="/YazilimTasarimKaliplari/src/LiskovSubstitutionPrinciple/IZiplayabilme.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="81" width="124" x="458" y="360"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="8" language="java" name="LiskovSubstitutionPrinciple.Maymun" project="YazilimTasarimKaliplari" 
+    file="/YazilimTasarimKaliplari/src/LiskovSubstitutionPrinciple/Maymun.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="138" x="102" y="113"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="LiskovSubstitutionPrinciple.Guvercin" project="YazilimTasarimKaliplari" 
+    file="/YazilimTasarimKaliplari/src/LiskovSubstitutionPrinciple/Guvercin.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="138" x="458" y="113"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <realization id="10">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <generalization id="11">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <realization id="12">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <realization id="13">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <realization id="14">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="15">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="16">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <realization id="17">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <realization id="18">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <generalization id="19">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <realization id="20">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <realization id="21">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <realization id="22">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <realization id="23">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <generalization id="24">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
